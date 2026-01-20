@@ -274,19 +274,19 @@
         }
 
         #about h3 {
-        font-family: 'Playfair Display', serif;
-        font-weight: 700;
-        font-size: 1.6rem; 
-        margin-bottom: 2rem;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.6rem; 
+            margin-bottom: 2rem;
         }
 
         #about h4 {
-        font-family: 'Playfair Display', serif;
-        font-weight: 700;
-        font-size: 1.5rem; 
-        color: var(--text-dark);
-        margin-bottom: 0.8rem;
-        margin-top: 1.5rem;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.5rem; 
+            color: var(--text-dark);
+            margin-bottom: 0.8rem;
+            margin-top: 1.5rem;
         }
 
         .about-text p {
@@ -366,13 +366,13 @@
         }
 
         .date, .project-tech {
-        font-family: 'Playfair Display', serif; 
-        font-style: italic;
-        font-size: 1rem;               
-        font-weight: 600;                
-        color: var(--text-light);
-        margin-bottom: 1.2rem;
-        letter-spacing: 0.5px;
+            font-family: 'Playfair Display', serif; 
+            font-style: italic;
+            font-size: 1rem;               
+            font-weight: 600;                
+            color: var(--text-light);
+            margin-bottom: 1.2rem;
+            letter-spacing: 0.5px;
         }
 
         /* Experience Section */
@@ -437,6 +437,7 @@
             border: 2px solid var(--spring-mint);
             box-shadow: 0 4px 15px rgba(200, 230, 245, 0.3);
             transition: all 0.3s ease;
+            cursor: pointer;
         }
 
         .experience-images img:hover {
@@ -454,6 +455,47 @@
 
         .experience-images.single-image img {
             height: 200px;
+        }
+
+        /* Lightbox Styles */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 0 50px rgba(255, 255, 255, 0.3);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .lightbox-close:hover {
+            color: var(--rose-blush);
         }
 
         /* Contact Section */
@@ -584,6 +626,17 @@
             section {
                 padding: 5rem 1rem 3rem;
             }
+
+            .lightbox-close {
+                top: 10px;
+                right: 20px;
+                font-size: 30px;
+            }
+
+            .lightbox-content {
+                max-width: 95%;
+                max-height: 95%;
+            }
         }
     </style>
 </head>
@@ -691,6 +744,7 @@
             </div>
         </div>
     </section>
+
     <section id="experience">
         <div class="container">
             <h2 class="section-title">Experience</h2>
@@ -801,7 +855,7 @@ supporting unlimited concurrent users within free tier limits.</li>
                     </ul>
                 </div>
 
-                     <div class="project-card">
+                <div class="project-card">
                     <h3>Fire Prediction System</h3>
                     <p class="project-tech">Python | Dec 2025</p>
                     <ul>
@@ -828,7 +882,7 @@ assessments.</li>
                     </ul>
                 </div>
                 
-              <div class="project-card">
+                <div class="project-card">
                     <h3>Maverick Online Entertainment System</h3>
                     <p class="project-tech">Java | Oct 2024</p>
                     <ul>
@@ -841,13 +895,13 @@ management with comprehensive regression testing.</li>
                     </ul>
                 </div>
 
-           <div class="project-card">
+                <div class="project-card">
                     <h3>Checkers Game</h3>
                     <p class="project-tech">Java, CSS, HTML, JavaScript | March 2025</p>
                     <ul>
                         <li>Implemented three gameplay modes: PvP, PvBot, and Bot vs. Bot.</li>
                         <li>Produced comprehensive project documentation and state diagrams.</li>
-                        <li>Coordinated data handoff to the database team, enabling seamless frontend–backend integration.</li>
+                        <li>Coordinated data handoff to the database team, enabling seamless frontend—backend integration.</li>
                     </ul>
                 </div>
                 
@@ -882,8 +936,13 @@ management with comprehensive regression testing.</li>
         </div>
     </section>
 
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close" id="lightbox-close">&times;</span>
+        <img class="lightbox-content" id="lightbox-img" src="" alt="Enlarged view">
+    </div>
+
     <script>
-        // Smooth scrolling for navigation links
         document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -898,7 +957,6 @@ management with comprehensive regression testing.</li>
             });
         });
 
-        // Add scroll animation to elements
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -919,7 +977,38 @@ management with comprehensive regression testing.</li>
             el.style.transition = 'all 0.6s ease';
             observer.observe(el);
         });
+
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxClose = document.getElementById('lightbox-close');
+
+        document.querySelectorAll('.experience-images img').forEach(img => {
+            img.addEventListener('click', function() {
+                lightbox.classList.add('active');
+                lightboxImg.src = this.src;
+                lightboxImg.alt = this.alt;
+                document.body.style.overflow = 'hidden'; 
+            });
+        });
+
+        lightboxClose.addEventListener('click', closeLightbox);
+
+        lightbox.addEventListener('click', function(e) {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                closeLightbox();
+            }
+        });
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = ''; 
+        }
     </script>
 </body>
-
 </html>
