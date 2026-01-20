@@ -147,8 +147,8 @@
         }
 
         #experience .container {
-            max-width: 800px; 
-            width: 80%;       
+            max-width: 1000px; 
+            width: 90%;       
             margin: 0 auto;   
         }
 
@@ -215,6 +215,7 @@
             justify-content: center;
             margin-top: 2rem;
             animation: fadeInUp 1s ease 0.6s backwards;
+            flex-wrap: wrap;
         }
 
         .social-links a, .poems-link {
@@ -377,17 +378,21 @@
         /* Experience Section */
         .timeline {
             position: relative;
-            padding-left: 2rem;
+            padding-left: 0;
         }
 
         .timeline::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 3px;
-            background: linear-gradient(to bottom, var(--spring-pink), var(--spring-lavender), var(--spring-mint));
+            display: none;
+        }
+
+        /* Two-column layout for experience on desktop */
+        @media (min-width: 769px) {
+            .timeline {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+                padding-left: 0;
+            }
         }
 
         .timeline-item {
@@ -401,15 +406,7 @@
         }
 
         .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -2.5rem;
-            top: 1.5rem;
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-            background: var(--rose-blush);
-            border: 3px solid white;
+            display: none;
         }
 
         .timeline-item h3 {
@@ -427,7 +424,7 @@
 
         .experience-images {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 1rem;
             margin-top: 1.5rem;
         }
@@ -445,6 +442,18 @@
         .experience-images img:hover {
             transform: scale(1.05);
             box-shadow: 0 6px 20px rgba(200, 230, 245, 0.5);
+        }
+
+        /* Single image styling for JP Morgan and Deloitte */
+        .experience-images.single-image {
+            grid-template-columns: 1fr;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .experience-images.single-image img {
+            height: 200px;
         }
 
         /* Contact Section */
@@ -512,21 +521,51 @@
         @media (max-width: 768px) {
             nav {
                 top: 10px;
-                padding: 0.6rem 1rem;
+                padding: 0.5rem 0.8rem;
                 max-width: 98%;
             }
 
             nav ul {
-                gap: 1rem;
-                flex-wrap: wrap;
+                gap: 0.3rem;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                justify-content: flex-start;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            nav a {
+                font-size: 0.85rem;
+                padding: 0.4rem 0.7rem;
+                white-space: nowrap;
+            }
+
+            /* Hero section mobile fixes */
+            .hero-content {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .profile-pic {
+                width: 200px;
+                height: 200px;
             }
 
             .hero-content h1 {
-                font-size: 2.5rem;
+                font-size: 2rem;
             }
 
             .hero-content h2 {
-                font-size: 1.3rem;
+                font-size: 1.2rem;
+            }
+
+            .social-links {
+                gap: 0.8rem;
+                flex-wrap: wrap;
+            }
+
+            .social-links a, .poems-link {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
             }
 
             .about-content {
@@ -537,8 +576,9 @@
                 grid-template-columns: 1fr;
             }
 
-            nav ul {
-                gap: 1rem;
+            /* Keep timeline single column on mobile */
+            .timeline {
+                grid-template-columns: 1fr;
             }
 
             section {
@@ -662,11 +702,11 @@
                         <p>• Managing all undergrad Physics lab being an undergrad myself, sounds cool right? Not until I am
                             stuck among multimeters, transformers, and fuses. 
                             I set up 9 tables for labs every week on 6 rooms and test all of them. Open up anything that has issues 
-                            with my favourite mini screwdriver and stare at it until I figure out what is wrong :D </p> 
+                            with my favourite mini screwdriver and stare at it until I figure out what is wrong 😄 </p> 
                         <p>• I keep up with the inventory list on my long excel sheet, and look for companies, find better 
                             deal and also order equipments. Or for Mechanics lab, I just make designs on AutoCad and go to the Engineering 
                             Workshop. Sounds fun? Yes!! but not until I burn
-                            my hand while soldering a capacitance box, hehe :( </p>
+                            my hand while soldering a capacitance box, hehe 🥺 </p>
                         <p>• I also work on modifying lab manuals, creating new experiments and 
                             turning it into labs. Testing the software and Pasco Capstone's system oversight. And so far, I love how I am learning and 
                             growing so much because of this job.
@@ -674,8 +714,11 @@
                     </ul>
                     <div class="experience-images">
                         <img src="IMG_9267.jpeg" alt="Lab work 1">
-                        <img src="IMG_9275.jpeg" alt="Lab work 2">
+                        <img src="IMG_9837.jpeg" alt="Lab work 2">
                         <img src="IMG_9276.jpeg" alt="Lab work 3">
+                        <img src="IMG_9834.jpeg" alt="Lab work 4">
+                        <img src="IMG_9275.jpeg" alt="Lab work 5">
+                        <img src="IMG_9838.jpeg" alt="Lab work 6">
                     </div>
                 </div>
 
@@ -685,9 +728,9 @@
                     <ul>
                         <p>• Coordinator for SMART Camp, a residential program on disaster preparedness and resilience-building for children;
                             assisted in citywide disaster management trainings and drills.
-                            Served as Assistant Instructor for SMART’s international COVID-19 online session with cross country research 
+                            Served as Assistant Instructor for SMART's international COVID-19 online session with cross country research 
                             teams from Chile, Indonesia, Philippines, and Japan. </p>
-                        <p>• Instructed one of the HANDS selected Collaborative Action Challenge(CAC) projects, ”SMART 2019” for the
+                        <p>• Instructed one of the HANDS selected Collaborative Action Challenge(CAC) projects, "SMART 2019" for the
                             Kathmandu district which was completed with around 150 participants.
                             The project spanned all disaster and risk management phases from preparation to response, recovery, and review. The
                             emergency preparedness, immediate medical response, and disaster rescue techniques, all were taught.</p>
@@ -706,11 +749,12 @@
                     <h3>Deloitte Australia Data Analytics</h3>
                     <p class="date">Forage Online Simulation | Jan 2026</p>
                     <ul>
-                        <p>• Completed a Deloitte job simulation involving data analysis and forensic technology.
-                        <p>• Created a data dashboard using Tableau.</p>
-                        <p>• Used Excel to classify data and draw business conclusions.</p> 
+                        <p>• Built Tableau dashboards analyzing IoT sensor data from manufacturing facilities to pinpoint equipment 
+                            failures and quantify operational downtime by factory and device type.</p>
+                        <p>•  Developed calculated fields to convert raw telemetry data into actionable downtime metrics, enabling cross-functional teams to prioritize maintenance efforts.</p>
+                        <p>• Automated compensation equity analysis in Excel by creating classification formulas that categorized 100+ employee records into fairness levels.</p> 
                     </ul>
-                    <div class="experience-images">
+                    <div class="experience-images single-image">
                         <img src="Deloitte.jpg" alt="Deloitte Certificate">
                     </div>
                 </div>
@@ -729,7 +773,7 @@ incorporating them into transactional workflows.</p>
 maintaining clean architectural boundaries.</p>
                         <p>• Verified system behavior using Maven test suites and debugger-driven inspection, ensuring reliability.</p>
                     </ul>
-                    <div class="experience-images">
+                    <div class="experience-images single-image">
                         <img src="JP_morgan.jpg" alt="JP Morgan Certificate">
                     </div>
                 </div>
@@ -788,9 +832,12 @@ assessments.</li>
                     <h3>Maverick Online Entertainment System</h3>
                     <p class="project-tech">Java | Oct 2024</p>
                     <ul>
-                        <li>Designed and built a Java-based media management system with OOP principles.</li>
-                        <li>Developed an intuitive menu-driven interface with sprint-based development.</li>
-                        <li>Ensured robust data handling and scalability through modular design.</li>
+                        <li>Developed subscription-based media streaming platform with unlimited and pay-per-view account models, managing
+student authentication and content delivery.</li>
+                        <li>Implemented persistent data storage using BufferedReader/Writer with automatic backup creation and file validation via
+magic cookie verification.</li>
+                        <li>Designed object-oriented architecture leveraging abstract classes, inheritance, and polymorphism for scalable account
+management with comprehensive regression testing.</li>
                     </ul>
                 </div>
 
@@ -800,7 +847,7 @@ assessments.</li>
                     <ul>
                         <li>Implemented three gameplay modes: PvP, PvBot, and Bot vs. Bot.</li>
                         <li>Produced comprehensive project documentation and state diagrams.</li>
-                        <li>Coordinated data handoff to the database team, enabling seamless frontend‑backend integration.</li>
+                        <li>Coordinated data handoff to the database team, enabling seamless frontend–backend integration.</li>
                     </ul>
                 </div>
                 
@@ -876,10 +923,3 @@ assessments.</li>
 </body>
 
 </html>
-
-
-
-
-
-
-
